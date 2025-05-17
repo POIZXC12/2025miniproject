@@ -22,9 +22,9 @@ if (config.use_env_variable) {
   );
 }
 
-// User 모델 등록
-const User = require("../User/models/user")(sequelize, Sequelize.DataTypes);
-db[User.name] = User;
+// // User 모델 등록
+// const User = require("../User/models/user")(sequelize, Sequelize.DataTypes);
+// db[User.name] = User;
 
 // 여기에 다른 모델들 추가
 // 예: const Post = require('../Post/models/post')(sequelize, Sequelize.DataTypes);
