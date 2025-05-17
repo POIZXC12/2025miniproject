@@ -4,7 +4,7 @@ const path = require("path");
 const db = require("./src/global/models.js");
 
 // HTML 경로 설정
-const filePath = path.join(__dirname, "..", "client", "index.html");
+const filePath = path.join(__dirname, "client", "index.html");
 
 // 서버 생성
 const server = http.createServer((req, res) => {
