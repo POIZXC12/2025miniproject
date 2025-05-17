@@ -1,10 +1,12 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const db = require("./src/global/models.js");
 
-// HTML 파일 경로 설정 (client 폴더의 index.html을 가리킴)
+// HTML 경로 설정
 const filePath = path.join(__dirname, "..", "client", "index.html");
 
+// 서버 생성
 const server = http.createServer((req, res) => {
   if (req.url === "/") {
     fs.readFile(filePath, (err, data) => {
@@ -22,6 +24,15 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(3000, () => {
-  console.log("✅ 서버가 http://localhost:3000 에서 실행 중입니다!");
-});
+// Sequelize 동기화 후 http 서버 실행
+db.sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("데이터베이스 동기화 완료");
+    server.listen(3000, () => {
+      console.log("✅ 서버가 http://localhost:3000 에서 실행 중입니다!");
+    });
+  })
+  .catch((err) => {
+    console.error("데이터베이스 동기화 오류:", err);
+  });
